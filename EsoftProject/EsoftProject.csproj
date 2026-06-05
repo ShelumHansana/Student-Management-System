@@ -1,0 +1,269 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{AC873ACA-B673-48E2-9F7F-2295F8037276}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>EsoftProject</RootNamespace>
+    <AssemblyName>EsoftProject</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>download-fotor-20230924172019asfdsdbhdfgnghjmhyjdnhdrthbrtshth.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AgreementforParent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AgreementforParent.Designer.cs">
+      <DependentUpon>AgreementforParent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Calculator.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Calculator.Designer.cs">
+      <DependentUpon>Calculator.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Home.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Home.Designer.cs">
+      <DependentUpon>Home.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login Teacher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login Teacher.Designer.cs">
+      <DependentUpon>Login Teacher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IdexNoCheckerforParent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IdexNoCheckerforParent.Designer.cs">
+      <DependentUpon>IdexNoCheckerforParent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="IndexNoCheckerforStudent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IndexNoCheckerforStudent.Designer.cs">
+      <DependentUpon>IndexNoCheckerforStudent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login Parent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login Parent.Designer.cs">
+      <DependentUpon>Login Parent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Login Student.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login Student.Designer.cs">
+      <DependentUpon>Login Student.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarksEnterTeacher.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MarksEnterTeacher.Designer.cs">
+      <DependentUpon>MarksEnterTeacher.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MarksParent.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MarksParent.Designer.cs">
+      <DependentUpon>MarksParent.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ParentMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ParentMenu.Designer.cs">
+      <DependentUpon>ParentMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ParentNote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ParentNote.Designer.cs">
+      <DependentUpon>ParentNote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ParentRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ParentRegister.Designer.cs">
+      <DependentUpon>ParentRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RegisterationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="RegisterationForm.Designer.cs">
+      <DependentUpon>RegisterationForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentMarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentMarks.Designer.cs">
+      <DependentUpon>StudentMarks.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentMenu.Designer.cs">
+      <DependentUpon>StudentMenu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentNote.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentNote.Designer.cs">
+      <DependentUpon>StudentNote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="StudentRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="StudentRegister.Designer.cs">
+      <DependentUpon>StudentRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Teacher%27s Menu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Teacher%27s Menu.Designer.cs">
+      <DependentUpon>Teacher%27s Menu.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TestforRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TestforRegister.Designer.cs">
+      <DependentUpon>TestforRegister.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ViewMarks.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ViewMarks.Designer.cs">
+      <DependentUpon>ViewMarks.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="AgreementforParent.resx">
+      <DependentUpon>AgreementforParent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Calculator.resx">
+      <DependentUpon>Calculator.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Home.resx">
+      <DependentUpon>Home.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login Teacher.resx">
+      <DependentUpon>Login Teacher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IdexNoCheckerforParent.resx">
+      <DependentUpon>IdexNoCheckerforParent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="IndexNoCheckerforStudent.resx">
+      <DependentUpon>IndexNoCheckerforStudent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login Parent.resx">
+      <DependentUpon>Login Parent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Login Student.resx">
+      <DependentUpon>Login Student.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarksEnterTeacher.resx">
+      <DependentUpon>MarksEnterTeacher.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MarksParent.resx">
+      <DependentUpon>MarksParent.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ParentMenu.resx">
+      <DependentUpon>ParentMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ParentNote.resx">
+      <DependentUpon>ParentNote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ParentRegister.resx">
+      <DependentUpon>ParentRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="RegisterationForm.resx">
+      <DependentUpon>RegisterationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentMarks.resx">
+      <DependentUpon>StudentMarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentMenu.resx">
+      <DependentUpon>StudentMenu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentNote.resx">
+      <DependentUpon>StudentNote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="StudentRegister.resx">
+      <DependentUpon>StudentRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Teacher%27s Menu.resx">
+      <DependentUpon>Teacher%27s Menu.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TestforRegister.resx">
+      <DependentUpon>TestforRegister.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ViewMarks.resx">
+      <DependentUpon>ViewMarks.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="download-fotor-20230924172019asfdsdbhdfgnghjmhyjdnhdrthbrtshth.ico" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>
