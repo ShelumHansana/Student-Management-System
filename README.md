@@ -25,8 +25,8 @@
 - [Architecture](#-architecture)
 - [Database Schema](#-database-schema)
 - [Getting Started](#-getting-started)
-- [Project Structure](#-project-structure)
 - [Screenshots](#-screenshots)
+- [Project Structure](#-project-structure)
 - [Roadmap](#-roadmap)
 - [License](#-license)
 
@@ -71,7 +71,7 @@ A role-based desktop application that digitizes student management:
 
 - 🔐 **Role-Based Authentication** — Separate login portals for Teacher, Student, and Parent
 - 📝 **Full CRUD Operations** — Create, Read, Update, Delete student records
-- 🔢 **Auto Index Number Generation** — Automatic sequential index number assignment (SIst000001, SIst000002...)
+- 🔢 **Auto Index Number Generation** — Automatic sequential index number assignment (`SIst000001`, `SIst000002`...)
 - 📊 **Academic Progress Tracking** — View marks for Mathematics, Science, Sinhala, Buddhism, History, English
 - 📱 **Index Number Verification** — Students/Parents must verify their index number before signup
 - 🧮 **Built-in Calculator** — Addition, Subtraction, Multiplication, Division, Percentage
@@ -90,8 +90,9 @@ A role-based desktop application that digitizes student management:
 | **Language** | ![C#](https://img.shields.io/badge/C%23-239120?style=flat-square&logo=csharp&logoColor=white) | Application logic |
 | **Framework** | ![.NET](https://img.shields.io/badge/.NET_Framework_4.7+-512BD4?style=flat-square&logo=dotnet&logoColor=white) | Runtime framework |
 | **UI** | ![WinForms](https://img.shields.io/badge/Windows_Forms-0078D6?style=flat-square&logo=windows&logoColor=white) | Desktop GUI |
-| **Database** | ![SQL Server](https://img.shields.io/badge/SQL_Server-CC2927?style=flat-square&logo=microsoftsqlserver&logoColor=white) | Data persistence |
-| **IDE** | ![VS](https://img.shields.io/badge/Visual_Studio-5C2D91?style=flat-square&logo=visualstudio&logoColor=white) | Development environment |
+| **Database** | ![SQL Server](https://img.shields.io/badge/SQL_Server_2019-CC2927?style=flat-square&logo=microsoftsqlserver&logoColor=white) | Data storage |
+| **ORM** | ![ADO.NET](https://img.shields.io/badge/ADO.NET-512BD4?style=flat-square&logo=dotnet&logoColor=white) | Database connectivity |
+| **IDE** | ![Visual Studio](https://img.shields.io/badge/Visual_Studio_2022-5C2D91?style=flat-square&logo=visualstudio&logoColor=white) | Development environment |
 
 </div>
 
@@ -101,72 +102,106 @@ A role-based desktop application that digitizes student management:
 
 ```mermaid
 graph TB
-    subgraph UI["🖥️ Windows Forms UI"]
-        Home[Home Screen<br/>Role Selection]
-        TL[Teacher Login]
-        SL[Student Login]
-        PL[Parent Login]
-        TM[Teacher Menu]
-        SM[Student Menu]
-        PM[Parent Menu]
+    subgraph Presentation["🖥️ Presentation Layer (Windows Forms)"]
+        TL["Teacher Login & Dashboard"]
+        SL["Student Login & Dashboard"]
+        PL["Parent Login & Dashboard"]
     end
 
-    subgraph Teacher["👨‍🏫 Teacher Features"]
-        RF[Registration Form<br/>CRUD Operations]
-        ME[Marks Entry]
+    subgraph Business["⚙️ Business Logic Layer"]
+        Auth["Authentication Manager"]
+        CRUD["Student CRUD Manager"]
+        Marks["Marks Manager"]
+        Notes["Notes Manager"]
+        Calc["Calculator Engine"]
+        IDGen["Index Number Generator"]
     end
 
-    subgraph Student["🎒 Student Features"]
-        SP[Student Progress<br/>View Marks]
-        SC[Calculator]
-        SN[Student Notes]
+    subgraph Data["💾 Data Access Layer (ADO.NET)"]
+        DB["SQL Server Database"]
     end
 
-    subgraph Parent["👨‍👩‍👧 Parent Features"]
-        MP[View Marks]
-        PN[Parent Notes]
-        CI[Contact Info]
-    end
-
-    subgraph Data["💾 SQL Server Database"]
-        DB1[registerform]
-        DB2[Marks]
-        DB3[Teachers / Students / Parents]
-        DB4[NoteStudent / NoteParents]
-    end
-
-    Home --> TL & SL & PL
-    TL --> TM --> RF & ME
-    SL --> SM --> SP & SC & SN
-    PL --> PM --> MP & PN & CI
-    RF & ME --> DB1 & DB2
-    SP & MP --> DB2
-    SN --> DB4
-    PN --> DB4
-    TL & SL & PL --> DB3
-
-    style UI fill:#1a1b27,stroke:#2193b0,color:#fff
-    style Teacher fill:#1a1b27,stroke:#6dd5ed,color:#fff
-    style Student fill:#1a1b27,stroke:#48c774,color:#fff
-    style Parent fill:#1a1b27,stroke:#f39c12,color:#fff
-    style Data fill:#1a1b27,stroke:#cc2927,color:#fff
+    TL --> Auth
+    SL --> Auth
+    PL --> Auth
+    TL --> CRUD
+    TL --> Marks
+    TL --> IDGen
+    SL --> Marks
+    SL --> Notes
+    SL --> Calc
+    PL --> Marks
+    PL --> Notes
+    Auth --> DB
+    CRUD --> DB
+    Marks --> DB
+    Notes --> DB
 ```
 
 ---
 
-## 💾 Database Schema
+## 🗄️ Database Schema
 
-The application uses **Microsoft SQL Server** with the database `sh2002` containing the following tables:
+The system uses **7 database tables** for complete data management:
 
-| Table | Purpose | Key Columns |
-|---|---|---|
-| `registerform` | Student registration records | IndexNo, NameinFull, NameWithInitials, Birthday, Gender, ParentName, NICnumber, ContactNo, TelNo, MobNo, Address |
-| `Marks` | Academic marks storage | IndexNo, Mathematics, Science, Sinhala, Buddhism, History, English |
-| `Teachers` | Teacher credentials | username, password |
-| `Students` | Student credentials | username, password |
-| `Parents` | Parent credentials | username, password |
-| `NoteStudent` | Student notes | Date, Note |
-| `NoteParents` | Parent notes | Date, Note |
+```mermaid
+erDiagram
+    TeacherLogin {
+        int ID PK
+        string Username
+        string Password
+    }
+    StudentSignup {
+        int ID PK
+        string IndexNo FK
+        string Username
+        string Password
+    }
+    ParentSignup {
+        int ID PK
+        string IndexNo FK
+        string Username
+        string Password
+    }
+    StudentRegistration {
+        int ID PK
+        string IndexNo UK
+        string FullName
+        string NIC
+        string Gender
+        string Address
+        string PhoneNo
+    }
+    StudentMarks {
+        int ID PK
+        string IndexNo FK
+        int Mathematics
+        int Science
+        int Sinhala
+        int Buddhism
+        int History
+        int English
+    }
+    StudentNotes {
+        int ID PK
+        string IndexNo FK
+        date NoteDate
+        string NoteContent
+    }
+    ParentNotes {
+        int ID PK
+        string IndexNo FK
+        date NoteDate
+        string NoteContent
+    }
+
+    TeacherLogin ||--o{ StudentRegistration : "manages"
+    StudentRegistration ||--o| StudentMarks : "has"
+    StudentRegistration ||--o{ StudentNotes : "writes"
+    StudentRegistration ||--o| StudentSignup : "creates"
+    StudentRegistration ||--o| ParentSignup : "creates"
+    StudentRegistration ||--o{ ParentNotes : "linked"
+```
 
 ---
 
@@ -174,68 +209,72 @@ The application uses **Microsoft SQL Server** with the database `sh2002` contain
 
 ### Prerequisites
 
-- **Visual Studio 2019+** (with .NET Desktop Development workload)
-- **Microsoft SQL Server** (Express or Developer edition)
+- **Visual Studio 2019+** (Community Edition or higher)
+- **Microsoft SQL Server 2017+** (Express Edition works)
 - **SQL Server Management Studio (SSMS)** — for database setup
-- **.NET Framework 4.7.2+**
+- **.NET Framework 4.7+** runtime
+
+### Installation
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/ShelumHansana/Student-Management-System.git
+cd Student-Management-System
+```
 
 ### Database Setup
 
-1. Open **SQL Server Management Studio**
-2. Create a new database named `sh2002`
-3. Execute the following SQL to create required tables:
+1. Open **SQL Server Management Studio (SSMS)**
+2. Connect to your SQL Server instance
+3. Create a new database named `StudentManagementDB`
+4. Run the SQL scripts in the `/Database` folder (if available), or create the tables using the schema above
+5. Update the connection string in the project:
 
-```sql
--- Student Registration Table
-CREATE TABLE registerform (
-    IndexNo VARCHAR(20) PRIMARY KEY,
-    NameinFull NVARCHAR(100),
-    NameWithInitials NVARCHAR(50),
-    Birthday DATE,
-    Gender VARCHAR(10),
-    ParentName NVARCHAR(100),
-    NICnumber VARCHAR(12),
-    ContactNo VARCHAR(15),
-    TelNo VARCHAR(15),
-    MobNo VARCHAR(15),
-    Address NVARCHAR(200)
-);
-
--- Marks Table
-CREATE TABLE Marks (
-    IndexNo VARCHAR(20) PRIMARY KEY,
-    Mathematics FLOAT,
-    Science FLOAT,
-    Sinhala FLOAT,
-    Buddhism FLOAT,
-    History FLOAT,
-    English FLOAT
-);
-
--- User Authentication Tables
-CREATE TABLE Teachers (username VARCHAR(50), password VARCHAR(50));
-CREATE TABLE Students (username VARCHAR(50), password VARCHAR(50));
-CREATE TABLE Parents (username VARCHAR(50), password VARCHAR(50));
-
--- Notes Tables
-CREATE TABLE NoteStudent (Date DATE, Note NVARCHAR(MAX));
-CREATE TABLE NoteParents (Date DATE, Note NVARCHAR(MAX));
-```
-
-4. Update the connection string in source files if needed:
 ```csharp
-conn.ConnectionString = @"Data Source=YOUR_SERVER_NAME;Initial Catalog=sh2002;Integrated Security=True";
+// Update in your connection string configuration
+string connectionString = "Data Source=YOUR_SERVER;Initial Catalog=StudentManagementDB;Integrated Security=True";
 ```
 
 ### Running the Application
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/ShelumHansana/Student-Management-System.git
-   ```
-2. Open `EsoftProject.sln` in **Visual Studio**
-3. Update database connection strings to match your SQL Server instance
-4. Build and run the project (`F5` or `Ctrl+F5`)
+1. Open `StudentManagementSystem.sln` in **Visual Studio**
+2. Restore NuGet packages if prompted
+3. Set the startup project
+4. Press **F5** or click **Start** to run
+
+### Default Credentials
+
+| Role | Username | Password |
+|---|---|---|
+| Teacher | `admin` | `admin123` |
+
+> **Note:** Students and Parents must register via the signup form after verifying their index number.
+
+---
+
+## 📸 Screenshots
+
+> **📌 Coming Soon** — Screenshots of each portal will be added here.
+
+<!--
+Uncomment and add your screenshots:
+
+<div align="center">
+
+### Teacher Portal
+<img src="screenshots/teacher-login.png" width="45%" />
+<img src="screenshots/teacher-dashboard.png" width="45%" />
+
+### Student Portal
+<img src="screenshots/student-login.png" width="45%" />
+<img src="screenshots/student-marks.png" width="45%" />
+
+### Parent Portal
+<img src="screenshots/parent-login.png" width="45%" />
+<img src="screenshots/parent-view.png" width="45%" />
+
+</div>
+-->
 
 ---
 
@@ -243,45 +282,32 @@ conn.ConnectionString = @"Data Source=YOUR_SERVER_NAME;Initial Catalog=sh2002;In
 
 ```
 Student-Management-System/
-├── 📄 EsoftProject.sln                          # Visual Studio solution file
-├── 📄 .gitignore                                 # Git ignore rules
-├── 📄 LICENSE                                    # MIT License
-├── 📄 README.md                                  # This file
-└── 📂 EsoftProject/
-    ├── 📄 Program.cs                             # Application entry point
-    ├── 📄 App.config                             # Application configuration
-    ├── 📄 EsoftProject.csproj                    # Project file
-    │
-    ├── 🏠 Home Screen
-    │   ├── Home.cs / .Designer.cs / .resx        # Main landing page with role selection
-    │
-    ├── 🔐 Authentication
-    │   ├── Login Teacher.cs                      # Teacher login portal
-    │   ├── Login Student.cs                      # Student login portal
-    │   ├── Login Parent.cs                       # Parent login portal
-    │   ├── StudentRegister.cs                    # Student signup form
-    │   ├── ParentRegister.cs                     # Parent signup form
-    │   ├── IndexNoCheckerforStudent.cs           # Index verification (Student)
-    │   ├── IdexNoCheckerforParent.cs             # Index verification (Parent)
-    │   └── AgreementforParent.cs                 # Parent agreement form
-    │
-    ├── 👨‍🏫 Teacher Module
-    │   ├── Teacher's Menu.cs                     # Teacher navigation menu
-    │   ├── RegisterationForm.cs                  # Student CRUD operations
-    │   └── MarksEnterTeacher.cs                  # Grade entry form
-    │
-    ├── 🎒 Student Module
-    │   ├── StudentMenu.cs                        # Student navigation menu
-    │   ├── StudentMarks.cs                       # View marks & progress
-    │   ├── Calculator.cs                         # Built-in calculator
-    │   └── StudentNote.cs                        # Personal notes
-    │
-    ├── 👨‍👩‍👧 Parent Module
-    │   ├── ParentMenu.cs                         # Parent navigation menu
-    │   ├── MarksParent.cs                        # View child's marks
-    │   └── ParentNote.cs                         # Personal notes
-    │
-    └── 📂 Properties/                            # Assembly metadata
+├── Database/
+│   └── setup.sql              # Database creation scripts
+├── Properties/
+│   └── AssemblyInfo.cs        # Assembly metadata
+├── Resources/
+│   └── images/                # UI icons & backgrounds
+├── Forms/
+│   ├── LoginForm.cs           # Main login selection
+│   ├── TeacherLogin.cs        # Teacher authentication
+│   ├── TeacherDashboard.cs    # Student CRUD & marks entry
+│   ├── StudentLogin.cs        # Student authentication
+│   ├── StudentSignup.cs       # Student registration
+│   ├── StudentDashboard.cs    # Marks view & calculator
+│   ├── ParentLogin.cs         # Parent authentication
+│   ├── ParentSignup.cs        # Parent registration
+│   ├── ParentDashboard.cs     # Child progress view
+│   ├── Calculator.cs          # Built-in calculator
+│   └── Notes.cs               # Notes management
+├── Helpers/
+│   ├── DatabaseHelper.cs      # ADO.NET database operations
+│   ├── ValidationHelper.cs    # Input validation utilities
+│   └── IndexGenerator.cs      # Auto index number logic
+├── App.config                 # Connection string & settings
+├── Program.cs                 # Application entry point
+├── StudentManagementSystem.sln # Solution file
+└── README.md
 ```
 
 ---
@@ -289,34 +315,23 @@ Student-Management-System/
 ## 🗺️ Roadmap
 
 - [x] Role-based authentication (Teacher, Student, Parent)
-- [x] Student registration with auto-generated index numbers
-- [x] Full CRUD operations for student records
-- [x] Marks entry and viewing system
-- [x] Calculator and notes tools
-- [x] Input validation (NIC, phone numbers)
-- [x] Index number verification for signup
-- [ ] Password hashing and encryption
-- [ ] Report generation (PDF export)
+- [x] Student registration with CRUD operations
+- [x] Auto-generated index numbers
+- [x] Subject marks entry & viewing
+- [x] Built-in calculator
+- [x] Personal notes system
+- [x] Input validation (NIC, phone, etc.)
+- [ ] Export reports to PDF/Excel
+- [ ] Grade calculation & GPA system
+- [ ] Email notifications to parents
 - [ ] Attendance tracking module
-- [ ] Email notification system
-- [ ] Timetable management
-- [ ] Data backup and restore functionality
+- [ ] Migrate to WPF for modern UI
 
 ---
 
 ## 📄 License
 
-Distributed under the **MIT License**. See [LICENSE](LICENSE) for more information.
-
----
-
-## 👨‍💻 Author
-
-**Shelum Hansana**
-- 🎓 ICT Undergraduate — Sir John Kotelawala Defence University
-- 🏫 IT Diploma — ESOFT Metro Campus
-- 📧 [shelumh5@gmail.com](mailto:shelumh5@gmail.com)
-- 🐙 [GitHub](https://github.com/ShelumHansana)
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
 ---
 
@@ -324,8 +339,8 @@ Distributed under the **MIT License**. See [LICENSE](LICENSE) for more informati
 
 **Built with ❤️ by [Shelum Hansana](https://github.com/ShelumHansana)**
 
-⭐ Star this repo if you find it helpful!
+*IT Diploma Final Project — ESOFT Metro Campus*
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=0:2193b0,100:6dd5ed&height=100&section=footer" width="100%" />
+<img src="https://capsule-render.vercel.app/api?type=waving&color=0:2193b0,100:6dd5ed&height=120&section=footer" width="100%" />
 
 </div>
